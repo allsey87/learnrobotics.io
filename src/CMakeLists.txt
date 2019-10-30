@@ -11,13 +11,14 @@ include(${CMAKE_SOURCE_DIR}/cmake/LRIOBuildFlags.cmake)
 set(LRIO_SOURCES hello.cxx)
 
 # create index.html
-add_executable(index ${LRIO_SOURCES})
-add_executable(html ALIAS index)
+add_executable(lrio ${LRIO_SOURCES})
+add_executable(output ALIAS lrio)
 
 # create a launch target that depends on creating index.html
 add_custom_target(launch
-   COMMAND ${EMSCRIPTEN_SERVER} "$<TARGET_FILE:html>"
+   COMMAND ${NODEJS_RUNTIME} "$<TARGET_FILE_NAME:output>"
+   WORKING_DIRECTORY $<TARGET_FILE_DIR:output>
 )
-add_dependencies(launch html)
+add_dependencies(launch output)
 
 
