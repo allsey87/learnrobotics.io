@@ -8,5 +8,16 @@ project(LearnRobotics.io CXX)
 # build flags
 include(${CMAKE_SOURCE_DIR}/cmake/LRIOBuildFlags.cmake)
 
+set(LRIO_SOURCES hello.cxx)
+
 # create index.html
-add_executable(index hello.cxx)
+add_executable(index ${LRIO_SOURCES})
+add_executable(html ALIAS index)
+
+# create a launch target that depends on creating index.html
+add_custom_target(launch
+   COMMAND ${EMSCRIPTEN_SERVER} "$<TARGET_FILE:html>"
+)
+add_dependencies(launch html)
+
+

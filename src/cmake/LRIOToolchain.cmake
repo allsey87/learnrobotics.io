@@ -9,3 +9,7 @@ find_program(CMAKE_CXX_COMPILER
    NAMES em++
    PATHS /usr/lib/emscripten ENV PATH)
 
+find_program(EMSCRIPTEN_SERVER
+   NAMES emrun
+   PATHS /usr/lib/emscripten ENV PATH)
+   
